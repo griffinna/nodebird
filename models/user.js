@@ -33,5 +33,19 @@ module.exports = class  User extends Sequelize.Model {
         });
     }
     
-    static associate(db) {}
+    static associate(db) {
+        db.User.hashMany(db.Post);  // 1 (User) : N (Post) 
+        // N (User) : M (User) - 팔로잉 기능
+        db.User.belongsToMany(db.User, {
+            foreignKey: 'followingId',
+            as: 'Followers',    // foreignKey 와 반대되는 모델을 가리킨다 (같은 테이블끼리의 N:M 관계일때 필수)
+            through: 'Follow',  // through: 생성할 모델 이름
+        });
+        // Follow 모델 생성 (followerId | followingId 정보를 가짐)
+        db.User.belongsToMany(db.User, {
+            foreignKey: 'followerId',
+            as: 'Followings',   // foreignKey 와 반대되는 모델을 가리킨다 (같은 테이블끼리의 N:M 관계일때 필수)
+            through: 'Follow',  // through: 생성할 모델 이름
+        });
+    }
 };

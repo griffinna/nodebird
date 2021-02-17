@@ -23,5 +23,8 @@ module.exports = class Port extends Sequelize.Model {
         });
     }
 
-    static associate(db) {}
+    static associate(db) {  
+        db.Post.belongsTo(db.User); // 1 (User) : N (Post)
+        db.Post.belongsToMany(db.HashTag, { through: 'PostHashTag' });  // N (Post) : M (Hashtag)
+    }
 };
