@@ -13,11 +13,16 @@
 
 - DB 연결
 ```console
-╰─$ npx sequelize db:create
+$ npx sequelize db:create
 
 Sequelize CLI [Node: 14.15.4, CLI: 6.2.0, ORM: 6.5.0]
 
 Loaded configuration file "config/config.json".
 Using environment "development".
 Database nodebird created.
+```
+
+- Passport 모듈로 로그인 구현
+```console
+$ npm i passport passport-local passport-kakao bcrypt
 ```
