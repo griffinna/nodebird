@@ -51,4 +51,15 @@ router.get('/logout', isLoggedIn, (req, res, next) => {
     res.redirect('/');
 });
 
+// 카카오 로그인 라우터
+router.get('/kakao', passport.authenticate('kakao'));
+
+// 카카오 로그인 콜백 라우터
+router.get('/kakao/callback', passport.authenticate('kakao', {
+    // 로컬과 다르게 passport.authenticate 메서드에 콜백 함수 제공하지 않음 (내부적으로 req.login 을 호출)
+    failureRedirect: '/',
+}), (req, res) => {
+    res.redirect('/');
+});
+
 module.exports = router;
