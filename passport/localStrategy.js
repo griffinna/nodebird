@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
 module.exports = () => {
-    passport.user(new LocalStorategy({  // 전략에 관한 설정
+    passport.use(new LocalStorategy({  // 전략에 관한 설정
         usernameField: 'email',
         passwordField: 'password',
     }, async (email, password, done) => {   // 실제 전략 수행 (done: passport.authenticate 의 콜백함수)
