@@ -1,17 +1,16 @@
 # nodebird
-- sequelize 설치
-    - config
-    - migrations
-    - models
-    - seeders
+## sequelize 설치  
+* config
+* migrations
+* models
+* seeders
+## 폴더 생성
+* view (템플릿 파일)
+* routes (라우터 파일)
+* public (정적 파일)
+* passport (passport 패키지)
 
-- 폴더 생성
-    - view (템플릿 파일)
-    - routes (라우터 파일)
-    - public (정적 파일)
-    - passport (passport 패키지)
-
-- DB 연결
+## DB 연결
 ```console
 $ npx sequelize db:create
 
@@ -21,13 +20,20 @@ Loaded configuration file "config/config.json".
 Using environment "development".
 Database nodebird created.
 ```
+* 로컬 mysql
+```console
+$ brew services start mysql
 
-- Passport 모듈로 로그인 구현
+# 콘솔 접속
+$ mysql -h localhost -u root -p
+```
+
+## Passport 모듈로 로그인 구현
 ```console
 $ npm i passport passport-local passport-kakao bcrypt
 ```
 
-- 로그인
+1. 로그인
     1. 라우터를 통해 로그인 요청이 들어옴
     1. 라우터에서 passport.authenticate 메서드 호출
     1. 로그인 전략 수행 (local / kakao)
@@ -36,10 +42,26 @@ $ npm i passport passport-local passport-kakao bcrypt
     1. req.session 에 사용자 아이디만 저장
     1. 로그인 완료
 
-- 로그인 이후
+2.  로그인 이후
     1. 요청이 들어옴
     1. 라우터에 요청이 도달하기 전에 passport.session 미들웨어가  
     passport.deserializeUser 메서드 호출
     1. req.session 에 저장된 아이디로 데이터베이스에서 사용자 조회
     1. 조회된 사용자 정보를 req.user 에 저장
     1. 라우터에서 req.user 객체 사용 가능
+
+
+## 카카오 로그인 
+[카카오 로그인용 애플리케이션 등록](https://deveoplers.kakao.com)
+- 로그인 > 내 애플리케이션 > **애플리케이션 추가하기**
+- 앱 생성 후 화면에서 **REST API 키**를 복사하여 .env 파일에 저장
+> KAKAO_ID=c551234555......22afd1d35bd
+- 앱 설정 > 플랫폼 > Web 플랫폼 등록 (사이트 도메인 입력)
+> http://localhost:8001
+- 제품설정 > 카카오 로그인 > 활성화 설정 **ON**
+- Redirect URL 설정  
+(kakaoStrategy.js 의 callbackURL)
+> http://localhost:8001/auth/kakao/callback
+- 제품설정 > 카카오 로그인 > 동의항목 > 로그인 동의항목 작성  
+예제에서는 email 이 반드시 필요  
+감ㅅ이 없는 경우를 대비해 **카카오 계정으로 정보 수집 후 제공** 체크 후 저장
