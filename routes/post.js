@@ -13,6 +13,7 @@ try {
 } catch (error) {
     console.error('Create uploads folder.')
     fs.mkdirSync('uploads');
+    // 실제 운영시에는  multer-s3(AWS S3), multer-google-storage(Cloud Storage) 사용
 }
 
 const upload = multer({
@@ -44,7 +45,7 @@ router.post('/', isLoggedIn, upload2.none(), async (req, res, next) => {
 
         const hashtags = req.body.content.match(/#[^\s#]+/g);
         if(hashtags) {
-            const result = await Promise.all(
+            const result = await Promise.all(   // 모두 실행
                 hashtags.map(tag => {
                     return Hashtag.findOrCreate({
                         where: { title: tag.slice(1).toLowerCase() },
