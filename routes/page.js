@@ -1,5 +1,6 @@
 const express = require('express');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
+const { Post, User } = require('../models');
 
 const router = express.Router();
 
@@ -27,5 +28,25 @@ router.get('/', (req, res, next) => {
         twits,
     });
 });
+
+// main 페이지 로딩 시 메인페이지와 게시글을 함께 로딩
+router.get('/', async (req, res, next) => {
+    try {
+        const posts = await Post.findAll({
+            include: {
+                model: User,
+                attributes: ['id', 'nick'],
+            },
+            order: [['createdAt', 'DESC']],
+        });
+        res.render('main', {
+            title: 'NodeBird',
+            twits: posts,
+        });
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+})
 
 module.exports = router;
