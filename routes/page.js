@@ -21,13 +21,13 @@ router.get('/join', isNotLoggedIn, (req, res) => {  // isAuthenticated() 가 fal
     res.render('join', { title: '회원가입 - NodeBird' });
 });
 
-router.get('/', (req, res, next) => {
-    const twits = [];
-    res.render('main', {
-        title: 'NodeBird',
-        twits,
-    });
-});
+// router.get('/', (req, res, next) => {
+//     const twits = [];
+//     res.render('main', {
+//         title: 'NodeBird',
+//         twits,
+//     });
+// });
 
 // main 페이지 로딩 시 메인페이지와 게시글을 함께 로딩
 router.get('/', async (req, res, next) => {
@@ -39,6 +39,7 @@ router.get('/', async (req, res, next) => {
             },
             order: [['createdAt', 'DESC']],
         });
+        console.log('posts', posts)
         res.render('main', {
             title: 'NodeBird',
             twits: posts,
@@ -60,7 +61,6 @@ router.get('/hashtag', async (req, res, next) => {
         if(hashtag) {
             posts = await hashtag.getPosts({ include: [{ model: User }] });
         }
-
         return res.render('main', {
             title: `${query} | NodeBird`,
             twits: posts,
