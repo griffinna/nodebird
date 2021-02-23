@@ -1,4 +1,4 @@
-* { box-sizing: border-box; }
+* { box-sizing: border-box; font-family: Verdana, Geneva, Tahoma, sans-serif;}
 html, body { margin: 0; padding: 0; height: 100%; }
 .btn {
   display: inline-block;
@@ -44,7 +44,7 @@ input[type='text'], input[type='email'], input[type='password'], textarea {
   margin-right: 10px;
   border-radius: 4px;
   border: 1px solid silver;
-  background: lightcoral;
+  background: rgb(117, 230, 186);
 }
 .user-name { font-weight: bold; font-size: 18px; }
 .count { font-weight: bold; color: crimson; font-size: 18px; }
@@ -89,8 +89,8 @@ input[type='text'], input[type='email'], input[type='password'], textarea {
   position: relative;
   margin-bottom: 10px;
 }
-.twit-author { display: inline-block; font-weight: bold; margin-right: 10px; }
-.twit-follow {
+.twit-author, .twit-follower{ display: inline-block; font-weight: bold; margin-right: 10px; }
+.twit-follow, .revert_follow {
   padding: 1px 5px;
   background: #fff;
   border: 1px solid silver;
