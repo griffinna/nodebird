@@ -1,9 +1,14 @@
 # nodebird
+> [시퀄라이즈 문서](https://sequelize.org/)  
+[데이터베이스 설명](https://ko.wikipedia.org/wiki/데이터베이스)  
+[MySQL 매뉴얼](https://dev.mysql.com/doc/refman/8.0/en)  
+[워크벤치 매뉴얼](https://dev.mysql.com/doc/workbench/en)
 ## sequelize 설치  
 * config
 * migrations
 * models
 * seeders
+
 ## 폴더 생성
 * view (템플릿 파일)
 * routes (라우터 파일)
