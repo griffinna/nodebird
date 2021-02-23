@@ -3,6 +3,15 @@
 [데이터베이스 설명](https://ko.wikipedia.org/wiki/데이터베이스)  
 [MySQL 매뉴얼](https://dev.mysql.com/doc/refman/8.0/en)  
 [워크벤치 매뉴얼](https://dev.mysql.com/doc/workbench/en)
+
+## 추가기능
+- [x] 팔로잉 끊기
+- [ ] 프로필 정보 변경하기
+- [ ] 게시글 좋아요 누르기 및 좋아요 취소하기
+- [ ] 게시글 삭제하기
+- [ ] deserializeUser 캐싱하기
+
+---
 ## sequelize 설치  
 * config
 * migrations
