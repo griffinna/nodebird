@@ -32,7 +32,7 @@
             <div class="twit-author">{{twit.User.nick}}</div>
             {% if not followerIdList.includes(twit.User.id) and twit.User.id !== user.id %}
               <button class="twit-follow">팔로우하기</button>
-            {% else %}
+            {% elif twit.User.id === user.id %}
               <button class="twit-delete">삭제하기</button>
             {% endif %}
             <div class="twit-content">{{twit.content}}</div>
