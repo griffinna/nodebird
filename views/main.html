@@ -32,6 +32,8 @@
             <div class="twit-author">{{twit.User.nick}}</div>
             {% if not followerIdList.includes(twit.User.id) and twit.User.id !== user.id %}
               <button class="twit-follow">팔로우하기</button>
+            {% else %}
+              <button class="twit-delete">삭제하기</button>
             {% endif %}
             <div class="twit-content">{{twit.content}}</div>
             {% if twit.img %}
@@ -80,5 +82,34 @@
         }
       });
     });
+
+    document.querySelectorAll('.twit-delete').forEach(function(delBtn) {
+      delBtn.addEventListener('click', function() {
+        const authorId = delBtn.parentNode.querySelector('.twit-user-id').value;
+        const postId = delBtn.parentNode.querySelector('.twit-id').value;
+        if(isMyPost(authorId) && postId) {
+          if(confirm('삭제하시겠습니까?')) {
+            axios.delete(`/post/${postId}`)
+              .then(() => {
+                location.reload();
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          }
+        }
+      });
+    });
+    
+    const isMyPost = (authorId) => {
+      const myId = document.querySelector('#my-id').value;
+      console.log(myId, authorId, myId === authorId);
+      if(myId === authorId) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
   </script>
 {% endblock %}
