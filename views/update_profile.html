@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <div class="timeline">
+    <form id="join-form" action="javascript:valid({{user.id}})" method="post">
+      <div class="input-group">
+        <label for="email">이메일</label>
+        <input id="email" type="email" name="email" value="{{user.email}}" disabled>
+      </div>
+      <div class="input-group">
+        <label for="nick">닉네임</label>
+        <input id="nick" type="text" name="nick" value="{{user.nick}}">
+      </div>
+      <div class="input-group">
+        <label for="password">새 비밀번호</label>
+        <input id="password" type="password" name="password">
+      </div>
+      <div class="input-group">
+        <label for="new-password">비밀번호 확인</label>
+        <input id="new-password" type="password" name="new-password">
+        <span id="error" style="color: red;"></span>
+      </div>
+      <button id="update-btn" type="submit" class="btn">수정</button>
+    </form>
+  </div>
+  <button id="go-main-btn" class="btn">메인</button>
+{% endblock %}
+
+{% block script %}
+  <script>
+    window.onload = () => {
+      if (new URL(location.href).searchParams.get('error')) {
+        alert('존재하지 않는 사용자입니다.');
+      }
+    };
+
+    const valid = (id) => {
+      
+      const url = `/auth/update/${id}`;
+      const password = document.getElementById('password').value;
+      const passwordCompare = document.getElementById('new-password').value;
+    
+      if(password !== passwordCompare) {
+        document.getElementById('error').innerText = '비밀번호가 일치하지 않습니다.';
+        return false;
+      }else{
+        const email = document.getElementById('email').value;
+        const nick = document.getElementById('nick').value;
+        const data = { id, nick, email, password };
+        
+        axios.post(url, data)
+          .then(() => {
+            location.replace('/');
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+    };
+
+    document.getElementById('new-password').addEventListener('onChange', () => {
+      const password = document.getElementById('password').value;
+      const passwordCompare = document.getElementById('new-password').value;
+      console.log(password, passwordCompare, password === passwordCompare);
+      if(password !== passwordCompare) {
+        document.getElementById('error').innerText = '비밀번호가 일치하지 않습니다.';
+      }else{
+        document.getElementById('error').innerText = '';
+      }
+    });
+
+  </script>
+{% endblock %}
