@@ -21,6 +21,10 @@ router.get('/join', isNotLoggedIn, (req, res) => {  // isAuthenticated() 가 fal
     res.render('join', { title: '회원가입 - NodeBird' });
 });
 
+router.get('/update', isLoggedIn, (req, res) => {
+    res.render('update', { titel: '정보수정 - NodeBird' });
+})
+
 // router.get('/', (req, res, next) => {
 //     const twits = [];
 //     res.render('main', {
