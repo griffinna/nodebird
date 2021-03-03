@@ -22,7 +22,7 @@ router.get('/join', isNotLoggedIn, (req, res) => {  // isAuthenticated() 가 fal
 });
 
 router.get('/update', isLoggedIn, (req, res) => {
-    res.render('update', { titel: '정보수정 - NodeBird' });
+    res.render('update_profile', { titel: '정보수정 - NodeBird' });
 })
 
 // router.get('/', (req, res, next) => {
@@ -43,7 +43,7 @@ router.get('/', async (req, res, next) => {
             },
             order: [['createdAt', 'DESC']],
         });
-        console.log('posts', posts)
+        // console.log('posts', posts)
         res.render('main', {
             title: 'NodeBird',
             twits: posts,
