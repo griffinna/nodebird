@@ -62,4 +62,31 @@ router.get('/kakao/callback', passport.authenticate('kakao', {
     res.redirect('/');
 });
 
+router.post('/update/:id', isLoggedIn, async (req, res, next) => {
+    const { nick, email, password } = req.body;
+    const id = req.params.id;
+
+    if(req.user.id !== id) {
+        return res.redirect('/update?error=unknownuser');
+    }
+
+    try {
+        const exUser = await User.findOne({ where: { email } });
+        if(!exUser) {
+            return res.redirect('/update?error=unknownuser');
+        }
+        const hash = await bcrypt.hash(password, 12);
+        await User.update({
+            nick,
+            password: hash,
+        }, {
+            where: { email, id },
+        })
+        res.redirect('/');
+    } catch (error) {
+        console.error(error);
+        return next(error);
+    }
+});
+
 module.exports = router;
