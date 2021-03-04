@@ -23,8 +23,9 @@
               <span class="badge badge-primary badge-pill">{{followerCount}}</span>
             </div>
           <input id="my-id" type="hidden" value="{{user.id}}">
-          <a id="my-profile" href="/profile" class="btn">내 프로필</a>
-          <a id="logout" href="/auth/logout" class="btn">로그아웃</a>
+          <a id="my-profile" href="/profile" class="btn btn-info">내 프로필</a>
+          <a id="update" href="/update" class="btn btn-warning">수정</a>
+          <a id="logout" href="/auth/logout" class="btn btn-dark">로그아웃</a>
         {% else %}
           <form id="login-form" action="/auth/login" method="post">
             <div class="input-group">
