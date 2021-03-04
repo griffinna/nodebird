@@ -3,22 +3,24 @@
 {% block content %}
   <div class="timeline">
     <form id="join-form" action="javascript:valid({{user.id}})" method="post">
-      <div class="input-group">
+      <div class="form-group">
         <label for="email">이메일</label>
-        <input id="email" type="email" name="email" value="{{user.email}}" disabled>
+        <input id="email" type="email" name="email" value="{{user.email}}" disabled class="form-control">
       </div>
-      <div class="input-group">
+      <div class="form-group">
         <label for="nick">닉네임</label>
-        <input id="nick" type="text" name="nick" value="{{user.nick}}">
+        <input id="nick" type="text" name="nick" value="{{user.nick}}" class="form-control">
       </div>
-      <div class="input-group">
-        <label for="password">새 비밀번호</label>
-        <input id="password" type="password" name="password">
-      </div>
-      <div class="input-group">
-        <label for="new-password">비밀번호 확인</label>
-        <input id="new-password" type="password" name="new-password">
-        <span id="error" style="color: red;"></span>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="password">새 비밀번호</label>
+          <input id="password" class="form-control" type="password" name="password">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="new-password">비밀번호 확인</label>
+          <input id="new-password" class="form-control" type="password" name="new-password">
+          <span id="error" style="color: red;"></span>
+        </div>
       </div>
       <button id="update-btn" type="submit" class="btn">수정</button>
     </form>
