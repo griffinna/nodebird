@@ -14,14 +14,12 @@
         <div class="profile">
           {% if user and user.id %}
             <div class="user-name">{{'안녕하세요! ' + user.nick + '님'}}</div>
-            <div class="half">
-              <div>팔로잉</div>
-              <span class="badge badge-primary badge-pill">{{followingCount}}</span>
-            </div>
-            <div class="half">
-              <div>팔로워</div>
-              <span class="badge badge-primary badge-pill">{{followerCount}}</span>
-            </div>
+            <span class="half badge badge-pill badge-secondary" style="font-size: 100%; float: left; width: 48%;">팔로잉
+              <span class="badge badge-pill badge-light">{{followingCount}}</span>
+            </span>
+            <span class="half badge badge-pill badge-secondary" style="font-size: 100%; float: right; width: 48%;">팔로워
+              <span class="badge badge-pill badge-light">{{followerCount}}</span>
+            </span>
           <input id="my-id" type="hidden" value="{{user.id}}">
           <a id="my-profile" href="/profile" class="btn btn-info">내 프로필</a>
           <a id="update" href="/update" class="btn btn-warning">수정</a>
