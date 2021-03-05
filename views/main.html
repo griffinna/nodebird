@@ -21,10 +21,10 @@
         </div>
       {% endif %}
       <div class="twits">
-        <form id="hashtag-form" action="/hashtag">
+        <!-- <form id="hashtag-form" action="/hashtag">
           <input type="text" name="hashtag" placeholder="태그 검색">
           <button class="btn">검색</button>
-        </form>
+        </form> -->
         {% for twit in twits %}
           <div class="twit">
             <input type="hidden" value="{{twit.User.id}}" class="twit-user-id">
