@@ -64,8 +64,7 @@ router.get('/kakao/callback', passport.authenticate('kakao', {
 
 router.post('/update/:id', isLoggedIn, async (req, res, next) => {
     const { nick, email, password } = req.body;
-    const id = req.params.id;
-
+    const id = parseInt(req.params.id, 10);
     if(req.user.id !== id) {
         return res.redirect('/update?error=unknownuser');
     }
