@@ -7,17 +7,33 @@
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 
 describe('isLoggedIn', () => {
+
+    const res = {
+        status: jest.fn(() => res),
+        send: jest.fn()
+    };
+    const next = jest.fn();
+
     test('로그인이 되어있으면 isLoggedIn 이 next 를 호출', () => {
-        
+        const req = {
+            isAuthenticated: jest.fn(() => true),
+        };
+        isLoggedIn(req, res, next);
+        expect(next).toBeCalledTimes(1);        // 정확하게 몇 번 호출되었는지를 체크하는 메서드
     });
 
-    test('로그인이 되어있지 않으면 isNotLoggedIn 이 next 를 호출', () => {
-        
+    test('로그인이 되어있지 않으면 isLoggedIn 이 에러를 응답해야 함', () => {
+        const req = {
+            isAuthenticated: jest.fn(() => false),
+        };
+        isLoggedIn(req, res, next);
+        expect(res.status).toBeCalledWith(403); // 특정 인수와 함께 호출되었는지 확인
+        expect(res.send).toBeCalledWith('로그인 필요');
     });
 });
 
 describe('isNotLoggedIn', () => {
-    test('로그인이 되어있으면 isLoggedIn 이 next 를 호출', () => {
+    test('로그인이 되어있으면 isNotLoggedIn 이 에러를 응답해야 함', () => {
         
     });
 
