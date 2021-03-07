@@ -33,11 +33,25 @@ describe('isLoggedIn', () => {
 });
 
 describe('isNotLoggedIn', () => {
+    const res = {
+        redirect: jest.fn(),
+    };
+    const next = jest.fn();
+
     test('로그인이 되어있으면 isNotLoggedIn 이 에러를 응답해야 함', () => {
-        
+        const req = {
+            isAuthenticated: jest.fn(() => true),
+        };
+        isNotLoggedIn(req, res, next);
+        const message = encodeURIComponent('로그인한 상태입니다.');
+        expect(res.redirect).toBeCalledWith(`/?error=${message}`);
     });
 
     test('로그인이 되어있지 않으면 isNotLoggedIn 이 next 를 호출', () => {
-        
+        const req = {
+            isAuthenticated: jest.fn(() => false),
+        };
+        isNotLoggedIn(req, res, next);
+        expect(next).toBeCalledTimes(1);
     });
 });
