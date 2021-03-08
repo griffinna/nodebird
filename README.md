@@ -79,3 +79,35 @@ $ npm i passport passport-local passport-kakao bcrypt
 - 제품설정 > 카카오 로그인 > 동의항목 > 로그인 동의항목 작성  
 예제에서는 email 이 반드시 필요  
 감ㅅ이 없는 경우를 대비해 **카카오 계정으로 정보 수집 후 제공** 체크 후 저장
+
+# 테스트코드
+## 테스트 커버리지
+- 스크립트 추가
+```json
+"scripts": {
+    ..
+    "coverage": "jest --coverage"
+  },
+```
+- 실행
+> $ npm run coverage
+
+- Result
+```console
+-----------------|---------|----------|---------|---------|-------------------
+File             | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-----------------|---------|----------|---------|---------|-------------------
+All files        |      84 |      100 |      60 |      84 |                   
+ controllers     |     100 |      100 |     100 |     100 |                   
+  user.js        |     100 |      100 |     100 |     100 |                   
+ models          |   33.33 |      100 |       0 |   33.33 |                   
+  user.js        |   33.33 |      100 |       0 |   33.33 | 5-49              
+ routes          |     100 |      100 |     100 |     100 |                   
+  middlewares.js |     100 |      100 |     100 |     100 |                   
+-----------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 2 passed, 2 total
+Tests:       7 passed, 7 total
+Snapshots:   0 total
+Time:        1.978 s, estimated 2 s
+```
