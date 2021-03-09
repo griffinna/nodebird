@@ -75,6 +75,5 @@ app.use((err, req, res, next) => {
     res.render('error');
 });
 
-app.listen(app.get('port'), () => {
-    console.log(app.get('port'), '번 포트에서 대기 중...');
-});
+// app 객체를 모듈로 만드러 분리
+module.exports = app;
