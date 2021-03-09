@@ -10,15 +10,46 @@ beforeAll(async() => {
     await sequelize.sync(); // 데이터베이스에 테이블을 생성
 });
 
-describe('POST /login', () =>{
-    test('로그인 수행', async (done) => {
+// 회원가입 테스트
+describe('POST /join', () =>{
+    test('로그인 안 했으면 가입', (done) => {
         request(app)
+            .post('/auth/join')
+            .send({
+                email: 'test@test.com',
+                nick: 'tester',
+                password: 'test',
+            })
+            .expect('Location', '/')
+            .expect(302, done);
+    });
+});
+
+// 로그인 한 상태에서 회원가입 시도 테스트
+describe('POST /login', () =>{
+    // agent: 하나 이상의 요청에서 재사용 가능
+    const agent = request.agent(app);
+    beforeEach((done) => {
+        agent
             .post('/auth/login')
             .send({
                 email: 'test@test.com',
                 password: 'test',
             })
-            .expect('Location', '/')
+            .end(done); // .end(done) : beforeEach 함수가 마무리되었음을 알림
+    });
+
+    test('이미 로그인했으면 redirect /', async (done) => {
+        const message = encodeURIComponent('로그인한 상태입니다.');
+        // 로그인 된 agent 로 회원가입 테스트를 진행
+        agent
+            .post('/auth/join')
+            .send({
+                email: 'test@test.com',
+                nick: 'tester',
+                password: 'test',
+            })
+            .expect('Location', `/?error=${message}`)
             .expect(302, done);
     });
 });
