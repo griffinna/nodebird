@@ -53,3 +53,8 @@ describe('POST /login', () =>{
             .expect(302, done);
     });
 });
+
+afterAll(async () => {
+    // 테이블 재생성
+    await sequelize.sync({ force: true });
+});
