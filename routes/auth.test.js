@@ -54,6 +54,72 @@ describe('POST /login', () =>{
     });
 });
 
+// 로그인
+describe('POST /login', () =>{
+    test('가입되지 않은 회원', async (done) => {
+        const message = encodeURIComponent('가입되지 않은 회원입니다.');
+        request(app)
+            .post('/auth/login')
+            .send({
+                email: 'test1@test.com',
+                password: 'test1',
+            })
+            .expect('Location', `/?loginError=${message}`)
+            .expect(302, done);
+    });
+
+    test('로그인 수행', async (done) => {
+        request(app)
+            .post('/auth/login')
+            .send({
+                email: 'test@test.com',
+                password: 'test',
+            })
+            .expect('Location', '/')
+            .expect(302, done);
+    });
+
+    test('비밀번호 틀림', async (done) => {
+        const message = encodeURIComponent('비밀번호가 일치하지 않습니다.');
+        request(app)
+            .post('/auth/login')
+            .send({
+                email: 'test@test.com',
+                password: 'wrong',
+            })
+            .expect('Location', `/?loginError=${message}`)
+            .expect(302, done);
+    });
+});
+
+// 로그아웃
+describe('GET /logout', () => {
+    test('로그인되어 있지 않으면 403', async (done) => {
+        request(app)
+            .get('/auth/logout')
+            .expect(403, done);
+    });
+
+    const agent = request.agent(app);
+    beforeEach((done) => {
+        agent
+            .post('/auth/login')
+            .send({
+                email: 'test@test.com',
+                password: 'test',
+            })
+            .end(done);
+    });
+
+    test('로그아웃 수행', async (done) => {
+        const message = encodeURIComponent('비밀번호가 일치하지 않습니다.');
+        agent
+            .get('/auth/logout')
+            .expect('Location', '/')
+            .expect(302, done);
+    });
+});
+
 afterAll(async () => {
     // 테이블 재생성
     await sequelize.sync({ force: true });
