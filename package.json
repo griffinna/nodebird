@@ -4,7 +4,7 @@
   "description": "nodebird sns service",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app",
+    "start": "nodemon server",
     "test": "jest",
     "coverage": "jest --coverage"
   },
