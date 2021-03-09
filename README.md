@@ -111,3 +111,26 @@ Tests:       7 passed, 7 total
 Snapshots:   0 total
 Time:        1.978 s, estimated 2 s
 ```
+
+## 통합테스트
+- 테스트 환경 database 분리
+> config/config.json
+```json
+  "test": {
+    "username": "root",
+    "password": "0000",
+    "database": "nodebird_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+```
+- 테스트 환경 database 생성
+```console
+╰─$ npx sequelize db:create --env test
+
+Sequelize CLI [Node: 14.15.4, CLI: 6.2.0, ORM: 6.5.0]
+
+Loaded configuration file "config/config.json".
+Using environment "test".
+Database nodebird_test created.
+```
